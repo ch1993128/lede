@@ -9,7 +9,7 @@
 
 编译命令如下:
 
-1. 首先装好 Ubuntu 64bit，推荐  Ubuntu  14 LTS x64
+1. 首先装好 Ubuntu 64bit，推荐  Ubuntu  14 LTS x64（尝试过最新版本，也没有问题）
 
 2. 命令行输入 sudo apt-get update ，然后输入
 sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
@@ -19,8 +19,18 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git
 4. ./scripts/feeds update -a 
    ./scripts/feeds install -a
    make menuconfig 
+   
+5.make clean 可以清除编译产物目录
+make dirlean 清除编译链和工具
+编译工具链报错时可以尝试
 
-5. 最后选好你要的路由，输入 make -j1 V=s （-j1 后面是线程数。第一次编译推荐用单线程，国内请尽量全局科学上网）即可开始编译你要的固件了。
+6.make download -j8 V=s 预下载编译相关包，需要搭好梯子，很多编译错误是下载错误导致的，分开下载和编译可以有效规避
+make -j8 tools/install V=s
+make -j8 toolchain/install V=s 安装编译工具和工具链
+
+7. 最后选好你要的路由，输入 make -j1 V=s （-j1 后面是线程数。第一次编译推荐用单线程，国内请尽量全局科学上网）即可开始编译你要的固件了。
+
+8.编译完成产物在lede/bin目录下
 
 本套代码保证肯定可以编译成功。里面包括了 R9 所有源代码，包括 IPK 的。
 
